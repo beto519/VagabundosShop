@@ -6,21 +6,52 @@
 package vistas;
 
 import entidades.Empleado;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import negocio.EmpleadoDAOIMP;
 
 /**
  *
- * @author lopez
+ * @author Carlos Soto Pacheco
  */
-public class ResgistrarEmpleados extends javax.swing.JFrame {
+public class RegistrarEmpleado extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form ResgistrarEmpleados
+     * Creates new form RegistrarEmpleado
      */
-    public ResgistrarEmpleados() {
+    public RegistrarEmpleado() {
         initComponents();
+    }
+    
+      private void RegistrarUser() {
+        
+        Empleado empleado = new Empleado();
+        EmpleadoDAOIMP DaoEmpleado = new EmpleadoDAOIMP();
+      try{
+        String nombre = txtNombre.getText();
+        
+        long codigoEmpleado = Long.valueOf(txtUsuario.getText());
+        String contraseña = String.valueOf(txtContraseña.getPassword());
+        String confirmarContraseña = String.valueOf(txtConfirmarContraseña.getPassword());
+        String puesto = txtPuesto.getText();
+        String tipoUser = cmbxTipoUsuario.getSelectedItem().toString();
+        if (contraseña.equals(confirmarContraseña)) {
+                 
+            empleado.setNombre(nombre);
+            empleado.setCodigoEmpleado(codigoEmpleado);
+            empleado.setContraseña(contraseña);
+            empleado.setRol(tipoUser);
+            empleado.setPuesto(puesto);
+            DaoEmpleado.agregar(empleado);
+            
+            JOptionPane.showMessageDialog(null, "Registro exitoso", "Mensaje",
+                        JOptionPane.DEFAULT_OPTION);
+        } else {
+            JOptionPane.showMessageDialog(null, "La contraseña no coincide", "Alerta",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+      }catch(Exception e){
+      e.printStackTrace();
+      }
     }
 
     /**
@@ -48,16 +79,10 @@ public class ResgistrarEmpleados extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtConfirmarContraseña = new javax.swing.JPasswordField();
         txtContraseña = new javax.swing.JPasswordField();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        txtMenu = new javax.swing.JMenu();
-        btnInicioMenuRegistrar = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        btnVentasMenuRegistrar = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        btnProductosMenuRegistrar = new javax.swing.JMenuItem();
-        btnSalir = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -114,7 +139,7 @@ public class ResgistrarEmpleados extends javax.swing.JFrame {
         btnGuardarRegistrarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acep_norm.png"))); // NOI18N
         btnGuardarRegistrarEmpleado.setBorder(null);
         btnGuardarRegistrarEmpleado.setContentAreaFilled(false);
-        btnGuardarRegistrarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGuardarRegistrarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardarRegistrarEmpleado.setFocusPainted(false);
         btnGuardarRegistrarEmpleado.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acep_roll.png"))); // NOI18N
         btnGuardarRegistrarEmpleado.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acep_press.png"))); // NOI18N
@@ -143,34 +168,33 @@ public class ResgistrarEmpleados extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPuesto, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbxTipoUsuario, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(138, 138, 138)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardarRegistrarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtConfirmarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 427, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtConfirmarContraseña, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                                .addComponent(txtContraseña, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPuesto)
+                                .addComponent(cmbxTipoUsuario, 0, 388, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGuardarRegistrarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,64 +213,27 @@ public class ResgistrarEmpleados extends javax.swing.JFrame {
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtConfirmarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(btnGuardarRegistrarEmpleado)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtConfirmarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(cmbxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(btnGuardarRegistrarEmpleado)))
+                .addContainerGap())
         );
-
-        jMenuBar1.setMinimumSize(new java.awt.Dimension(0, 8));
-
-        txtMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtMenu.setText("Menu");
-        txtMenu.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-
-        btnInicioMenuRegistrar.setText("Inicio");
-        btnInicioMenuRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnInicioMenuRegistrarMouseClicked(evt);
-            }
-        });
-        txtMenu.add(btnInicioMenuRegistrar);
-        txtMenu.add(jSeparator1);
-
-        btnVentasMenuRegistrar.setText("Ventas");
-        txtMenu.add(btnVentasMenuRegistrar);
-        txtMenu.add(jSeparator2);
-
-        btnProductosMenuRegistrar.setText("Productos");
-        txtMenu.add(btnProductosMenuRegistrar);
-
-        jMenuBar1.add(txtMenu);
-
-        btnSalir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnSalir.setText("Salir");
-        btnSalir.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSalirMouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(btnSalir);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -266,51 +253,6 @@ public class ResgistrarEmpleados extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void RegistrarUser() {
-        JFrame panel;
-        panel = new JFrame();
-        Empleado empleado = new Empleado();
-        EmpleadoDAOIMP DaoEmpleado = new EmpleadoDAOIMP();
-      try{
-        String nombre = txtNombre.getText();
-        String user = txtUsuario.getText();
-        String contraseña = String.valueOf(txtContraseña.getPassword());
-        String confirmarContraseña = String.valueOf(txtConfirmarContraseña.getPassword());
-        String puesto = txtPuesto.getText();
-        String tipoUser = cmbxTipoUsuario.getSelectedItem().toString();
-        if (contraseña.equals(confirmarContraseña)) {
-                 
-            empleado.setNombre(nombre);
-            empleado.setUsuario(user);
-            empleado.setContraseña(contraseña);
-            empleado.setRol(tipoUser);
-            empleado.setPuesto(puesto);
-            DaoEmpleado.agregar(empleado);
-            
-          JOptionPane.showMessageDialog(panel, "Registro exitoso", "Mensaje",
-                        JOptionPane.DEFAULT_OPTION);
-        } else {
-            JOptionPane.showMessageDialog(panel, "La contraseña no coincide", "Alerta",
-                    JOptionPane.WARNING_MESSAGE);
-        }
-      }catch(Exception e){
-      e.printStackTrace();
-      }
-    }
-    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
-        System.exit(0);
-
-// TODO add your handling code here:
-    }//GEN-LAST:event_btnSalirMouseClicked
-
-    private void btnInicioMenuRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMenuRegistrarMouseClicked
-
-        Principal abrir = new Principal();
-        abrir.setVisible(true);
-        dispose();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnInicioMenuRegistrarMouseClicked
-
     private void cmbxTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbxTipoUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbxTipoUsuarioActionPerformed
@@ -323,47 +265,9 @@ public class ResgistrarEmpleados extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContraseñaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ResgistrarEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ResgistrarEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ResgistrarEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ResgistrarEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ResgistrarEmpleados().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardarRegistrarEmpleado;
-    private javax.swing.JMenuItem btnInicioMenuRegistrar;
-    private javax.swing.JMenuItem btnProductosMenuRegistrar;
-    private javax.swing.JMenu btnSalir;
-    private javax.swing.JMenuItem btnVentasMenuRegistrar;
     private javax.swing.JComboBox<String> cmbxTipoUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -373,13 +277,9 @@ public class ResgistrarEmpleados extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPasswordField txtConfirmarContraseña;
     private javax.swing.JPasswordField txtContraseña;
-    private javax.swing.JMenu txtMenu;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPuesto;
     private javax.swing.JTextField txtUsuario;
