@@ -21,37 +21,37 @@ public class RegistrarEmpleado extends javax.swing.JInternalFrame {
     public RegistrarEmpleado() {
         initComponents();
     }
-    
-      private void RegistrarUser() {
-        
+
+    private void RegistrarUser() {
+
         Empleado empleado = new Empleado();
         EmpleadoDAOIMP DaoEmpleado = new EmpleadoDAOIMP();
-      try{
-        String nombre = txtNombre.getText();
-        
-        long codigoEmpleado = Long.valueOf(txtUsuario.getText());
-        String contraseña = String.valueOf(txtContraseña.getPassword());
-        String confirmarContraseña = String.valueOf(txtConfirmarContraseña.getPassword());
-        String puesto = txtPuesto.getText();
-        String tipoUser = cmbxTipoUsuario.getSelectedItem().toString();
-        if (contraseña.equals(confirmarContraseña)) {
-                 
-            empleado.setNombre(nombre);
-            empleado.setCodigoEmpleado(codigoEmpleado);
-            empleado.setContraseña(contraseña);
-            empleado.setRol(tipoUser);
-            empleado.setPuesto(puesto);
-            DaoEmpleado.agregar(empleado);
-            
-            JOptionPane.showMessageDialog(null, "Registro exitoso", "Mensaje",
+        try {
+            String nombre = txtNombre.getText();
+
+            long codigoEmpleado = Long.valueOf(txtUsuario.getText());
+            String contraseña = String.valueOf(txtContraseña.getPassword());
+            String confirmarContraseña = String.valueOf(txtConfirmarContraseña.getPassword());
+            String puesto = txtPuesto.getText();
+            String tipoUser = cmbxTipoUsuario.getSelectedItem().toString();
+            if (contraseña.equals(confirmarContraseña)) {
+
+                empleado.setNombre(nombre);
+                empleado.setCodigoEmpleado(codigoEmpleado);
+                empleado.setContraseña(contraseña);
+                empleado.setRol(tipoUser);
+                empleado.setPuesto(puesto);
+                DaoEmpleado.agregar(empleado);
+
+                JOptionPane.showMessageDialog(null, "Registro exitoso", "Mensaje",
                         JOptionPane.DEFAULT_OPTION);
-        } else {
-            JOptionPane.showMessageDialog(null, "La contraseña no coincide", "Alerta",
-                    JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "La contraseña no coincide", "Alerta",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-      }catch(Exception e){
-      e.printStackTrace();
-      }
     }
 
     /**
@@ -258,6 +258,8 @@ public class RegistrarEmpleado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cmbxTipoUsuarioActionPerformed
 
     private void btnGuardarRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegistrarEmpleadoActionPerformed
+
+        RegistrarUser();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardarRegistrarEmpleadoActionPerformed
 

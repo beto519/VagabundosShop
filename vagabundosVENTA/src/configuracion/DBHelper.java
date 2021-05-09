@@ -17,11 +17,11 @@ import java.sql.Statement;
  * @author VINKOs
  */
 public class DBHelper {
-    private String parOp = "?zeroDateTimeBehavior=convertToNull&useSSL=false";
+    private String parOp = "";
     private Connection connection;
     private String error;
     private String controller = "com.mysql.jdbc.Driver";
-    private String database = "bfbkuvpw7umrcsbqjoms-mysql.services.clever-cloud.com"+parOp;
+    private String database = "jdbc:mysql://bfbkuvpw7umrcsbqjoms-mysql.services.clever-cloud.com/bfbkuvpw7umrcsbqjoms"+parOp;
     private String user = "u2lqklodizhwhirf";
     private String password = "dztvKBJuvAS7tMKdErn6";
 
