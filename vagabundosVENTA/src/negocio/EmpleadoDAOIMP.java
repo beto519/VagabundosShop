@@ -8,6 +8,7 @@ package negocio;
 import configuracion.DBHelper;
 import entidades.Empleado;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
 public class EmpleadoDAOIMP implements CRUD<Empleado> {
 
     DBHelper bd = new DBHelper();
-
+String TABLA ="empleados";
     @Override
     public boolean agregar(Empleado empleado) {
         boolean resultado = false;
@@ -27,11 +28,12 @@ public class EmpleadoDAOIMP implements CRUD<Empleado> {
 
                 ///sql.append("INSERT INTO `vagabundosws`.`empleados` (`int`, `nombre`, `codigo`, `rol`, `contraseña`) VALUES ('1', 'Carlos Alberto Soto Pacheco', '1450842', 'Admin', 'a231195d67aa0224b886ddd8fbdcfa92')");
                 sql.append("INSERT INTO empleados")
-                        .append("(nombre, codigo,rol,contraseña) VALUES")
+                        .append("(nombre, codigo,rol,contraseña,) VALUES")
                         .append("('").append(empleado.getNombre()).append("',")
                         .append("'").append(empleado.getCodigoEmpleado()).append("',")
                         .append("'").append(empleado.getRol()).append("',")
-                        .append("MD5('").append(empleado.getContraseña()).append("'))");
+                        .append("MD5('").append(empleado.getContraseña()).append("')")
+                        .append("'").append(empleado.getPuesto()).append("')");
 
                 resultado = (boolean) bd.execute(sql.toString(), true);
 
@@ -62,10 +64,12 @@ public class EmpleadoDAOIMP implements CRUD<Empleado> {
 
                 if (rs.next()) {
                     empleado.setCodigoEmpleado(rs.getLong("codigo"));
+                  
                     empleado.setContraseña(rs.getString("contraseña"));
                     empleado.setIdEmpleado(rs.getInt("id"));
                     empleado.setNombre(rs.getString("nombre"));
                     empleado.setRol(rs.getString("rol"));
+                     empleado.setPuesto(rs.getString("puesto"));
                 }
 
             } catch (Exception e) {
@@ -83,11 +87,11 @@ public class EmpleadoDAOIMP implements CRUD<Empleado> {
             if (bd.connect()) {
 
                 ResultSet rs = (ResultSet) bd.execute(sql.toString(), false);
-                if(rs.next()){
-                codigoA = rs.getLong("codigo");
-                
+                if (rs.next()) {
+                    codigoA = rs.getLong("codigo");
+
                 }
-                
+
             }
 
         } catch (Exception e) {
@@ -98,23 +102,104 @@ public class EmpleadoDAOIMP implements CRUD<Empleado> {
     }
 
     @Override
-    public boolean editar(Empleado t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean editar(Empleado empleado) {
+    boolean resultado = false;
+        try {
+            if (bd.connect()) {
+                String query = "UPDATE empleados SET  "
+                        + "`nombre` = '" + empleado.getNombre() + "',  "
+                        + "`codigo` = '" + empleado.getCodigoEmpleado()+ "',  "
+                        + "`rol` = '" + empleado.getRol()+ "',  "
+                        + "`contraseña` = '" + empleado.getContraseña()+ "', "
+                        + " `puesto` = '" + empleado.getPuesto()+ "' "
+                        + " WHERE (`id` = '" + empleado.getIdEmpleado()+ "') ";
+                resultado = (boolean) bd.execute(query, true);
+            }
+
+        } catch (Exception e){
+            System.out.println(e);
+          
+        } finally {
+            bd.disconnect();
+        }
+        return resultado;
+    
+    
     }
 
     @Override
     public boolean eliminar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+      boolean resultado = false;
+
+        try {
+            if (bd.connect()) {
+                String query = "DELETE FROM empleados WHERE (`id` = '" + id + "');";
+                resultado = (boolean) bd.execute(query, true);
+            }
+        } catch (Exception e) {
+        } finally {
+            bd.disconnect();
+        }
+        return resultado;
+        
+    
     }
 
     @Override
     public List<Empleado> buscarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+     List<Empleado> empleado = new ArrayList();
+
+        try {
+            if (bd.connect()) {
+                String query = "SELECT * FROM  empleados";
+                ResultSet rs = (ResultSet) bd.execute(query, false);
+                while (rs.next()) {
+                    Empleado empleados = new Empleado();
+                    empleados.setIdEmpleado(rs.getInt("id"));
+                    empleados.setNombre(rs.getString("nombre"));
+                    empleados.setCodigoEmpleado(rs.getLong("codigo"));
+                    empleados.setRol(rs.getString("rol"));
+                   // empleados.setContraseña(rs.getString("contraseña"));
+                    empleados.setPuesto(rs.getString("puesto"));
+                    empleado.add(empleados);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            bd.disconnect();
+        }
+
+        return empleado;
     }
 
     @Override
     public Empleado buscarId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+        
+         Empleado empleado = new Empleado();
+        try {
+            if (bd.connect()) {
+                String query = "SELECT * FROM " + TABLA + " WHERE id = " + id;
+                ResultSet rs = (ResultSet) bd.execute(query, false);
+                if (rs.next()) {
+                    empleado.setIdEmpleado(rs.getInt("id"));
+                    empleado.setNombre(rs.getString("nombre"));
+                    empleado.setCodigoEmpleado(rs.getLong("codigo"));
+                    empleado.setRol(rs.getString("rol"));
+                   // empleado.setContraseña(rs.getString("contraseña"));
+                    empleado.setPuesto(rs.getString("puesto"));
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            bd.disconnect();
+        }
+        return empleado;
+    
+    
     }
 
 }
